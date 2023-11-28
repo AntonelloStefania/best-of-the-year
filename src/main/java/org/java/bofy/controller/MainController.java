@@ -8,6 +8,7 @@ import org.java.bofy.pojo.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MainController {
@@ -59,16 +60,67 @@ public class MainController {
 	public String moviesPage(Model model) {
 		final List<Movie> movies = getBestMovie();
 		
-		model.addAttribute("movies", movies);
+		
+		StringBuilder movieDetails = new StringBuilder(); 
+		for (Movie movie : movies ) {
+			movieDetails.append("titolo film: "+movie.getTitle());
+			movieDetails.append(" id film: " + movie.getId());
+			movieDetails.append(", ");
+		}
+		model.addAttribute("movies", movieDetails);
+		
 		return "moviePage";
+	}
+	
+	@GetMapping("/showMovie/{id}")
+	public String showMovie(Model model,
+				@PathVariable int id) {
+		final List<Movie> movies = getBestMovie();
+
+		
+		StringBuilder movieShow = new StringBuilder(); 
+		for (Movie movie : movies ) {
+			if(movie.getId() == id) {
+				
+				movieShow.append("titolo film scelto: "+ movie.getTitle());
+			}
+			
+		}
+		model.addAttribute("id", id);
+		model.addAttribute("movie", movieShow);
+		return "showMovie";
 	}
 	
 	@GetMapping("/songs")
 	public String songsPage(Model model) {
 		final List<Song> songs = getBestSong();
-		
-		model.addAttribute("songs", songs);
+		StringBuilder songDetails = new StringBuilder(); 
+		for (Song song : songs ) {
+			songDetails.append("totolo canzone: " + song.getSong_title());
+			songDetails.append(" id canzone: " + song.getSong_id());
+			songDetails.append(", ");
+		}
+		model.addAttribute("songs", songDetails);
 		return "songPage";
+	}
+	
+	@GetMapping("/showSong/{id}")
+	public String showSong(Model model,
+				@PathVariable int id) {
+		final List<Song> songs = getBestSong();
+
+		
+		StringBuilder songShow = new StringBuilder(); 
+		for (Song song : songs ) {
+			if(song.getSong_id() == id) {
+				
+				songShow.append("titolo canzone scelta: "+ song.getSong_title());
+			}
+			
+		}
+		model.addAttribute("id", id);
+		model.addAttribute("song", songShow);
+		return "songShow";
 	}
 
 }
