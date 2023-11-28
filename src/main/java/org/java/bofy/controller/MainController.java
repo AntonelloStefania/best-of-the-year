@@ -48,11 +48,27 @@ public class MainController {
 	
 	
 	@GetMapping("/")
-	public String test1(Model model) {
+	public String firstPage(Model model) {
 		final String myName = "Antonello";
 		model.addAttribute("myName", myName);
 		
 		return "firstPage";
+	}
+	
+	@GetMapping("/movies")
+	public String moviesPage(Model model) {
+		final List<Movie> movies = getBestMovie();
+		
+		model.addAttribute("movies", movies);
+		return "moviePage";
+	}
+	
+	@GetMapping("/songs")
+	public String songsPage(Model model) {
+		final List<Song> songs = getBestSong();
+		
+		model.addAttribute("songs", songs);
+		return "songPage";
 	}
 
 }
