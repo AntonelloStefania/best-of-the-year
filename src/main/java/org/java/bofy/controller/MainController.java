@@ -59,15 +59,8 @@ public class MainController {
 	@GetMapping("/movies")
 	public String moviesPage(Model model) {
 		final List<Movie> movies = getBestMovie();
-		
-		
-		StringBuilder movieDetails = new StringBuilder(); 
-		for (Movie movie : movies ) {
-			movieDetails.append("titolo film: "+movie.getTitle());
-			movieDetails.append(" id film: " + movie.getId());
-			movieDetails.append(", ");
-		}
-		model.addAttribute("movies", movieDetails);
+	
+		model.addAttribute("movies", movies);
 		
 		return "moviePage";
 	}
@@ -94,13 +87,8 @@ public class MainController {
 	@GetMapping("/songs")
 	public String songsPage(Model model) {
 		final List<Song> songs = getBestSong();
-		StringBuilder songDetails = new StringBuilder(); 
-		for (Song song : songs ) {
-			songDetails.append("totolo canzone: " + song.getSong_title());
-			songDetails.append(" id canzone: " + song.getSong_id());
-			songDetails.append(", ");
-		}
-		model.addAttribute("songs", songDetails);
+		
+		model.addAttribute("songs", songs);
 		return "songPage";
 	}
 	

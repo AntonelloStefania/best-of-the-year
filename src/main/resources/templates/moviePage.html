@@ -3,10 +3,25 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+
 </head>
 <body>
-	<h2 style="font-weight: bold;">BEST MOVIES: </h2>
-	<span>[[${movies}]]</span>
-		
+	<header th:replace="frags:: header(link,link)"></header>
+	<div th:replace="frags::home(link)"></div>
+	<div class="container">	
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 style="font-weight: bold;">BEST MOVIES: </h2>
+				<div class="col-4 offset-4">				
+					<ul class="list-unstyled">
+						<li th:each="mo :${movies}" class="border py-3">
+							<a th:href="@{'showMovie/' + ${mo.id}}" class="text-decoration-none  fw-bold">[[${mo.title}]]</a>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div>	
+	</div>
 </body>
 </html>
